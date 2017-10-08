@@ -26,26 +26,32 @@ export class ArToolkitService {
     const arToolKitContext = this.createARToolkitContext(camera);
 
     const onResizeHandler = () => {
-      arToolKitSource.onResize()
-      arToolKitSource.copySizeTo(renderer.domElement)
+      arToolKitSource.onResize();
+      arToolKitSource.copySizeTo(renderer.domElement);
       if (arToolKitContext.arController !== null) {
         arToolKitSource.copySizeTo(arToolKitContext.arController.canvas);
       }
       arToolKitSource.onResizeElement(renderer.domElement);
-    }
-    arToolKitSource.init(onResizeHandler);
+    };
+    arToolKitSource.init(() => {
+      arToolKitSource.copySizeTo(renderer.domElement);
+      if (arToolKitContext.arController !== null) {
+        arToolKitSource.copySizeTo(arToolKitContext.arController.canvas);
+      }
+    });
     window.addEventListener('resize', onResizeHandler);
 
     arToolKitContext.init(() => {
       camera.projectionMatrix.copy(arToolKitContext.getProjectionMatrix());
-    })
+    });
 
     return { renderer, arToolKitSource, arToolKitContext };
   }
 
   createArToolKitMarker(arToolkitContext, markerRoot): THREEx.ArMarkerControls {
     return new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-      type: 'pattern', patternUrl: THREEx.ArToolkitContext.baseURL + 'data/data/patt.hiro'
+      type: 'pattern',
+      patternUrl: 'https://s3.amazonaws.com/cop-test/pattern-visualart.patt'
     });
   }
 
@@ -58,6 +64,10 @@ export class ArToolkitService {
   }
 
   private createArToolKitSource(sourceParam: THREEx.ArToolkitSourceParam, renderer: THREE.WebGLRenderer): THREEx.ArToolkitSource {
+    if (renderer && renderer.domElement) {
+      sourceParam.displayWidth  = renderer.domElement.width;
+      sourceParam.displayHeight = renderer.domElement.height;
+    }
     const arToolKitSource = new THREEx.ArToolkitSource(sourceParam);
     return arToolKitSource;
   }
@@ -78,7 +88,8 @@ export class ArToolkitService {
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top      = '0px';
     renderer.domElement.style.left     = '0px';
-    document.body.appendChild(renderer.domElement);
+    canvasElement.width                = window.innerWidth;
+    canvasElement.height               = window.innerHeight;
     return renderer;
   }
 
@@ -95,7 +106,7 @@ export class ArToolkitService {
     });
     arToolkitContext.init(() => {
       camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-    })
+    });
     return arToolkitContext;
   }
 }

@@ -23,7 +23,7 @@
       ],
       "scripts": [
         "../node_modules/three/build/three.min.js",
-        "../node_modules/ar.js/three.js/build/ar.min.js"
+        "../node_modules/ar.js/three.js/build/ar.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

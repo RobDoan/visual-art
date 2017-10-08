@@ -9,11 +9,11 @@ import { ArToolkitService } from './services/ar-toolkit.service';
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild('camera') cameraCanvas: ElementRef;
-                       onRenderFcts: Array<Func> = [];
-                       scene: THREE.Scene;
-                       camera: THREE.Camera;
-                       markerRoot: THREE.Group;
-                       smoothedRoot: THREE.Group;
+                                onRenderFcts: Array<Func> = [];
+                                scene: THREE.Scene;
+                                camera: THREE.Camera;
+                                markerRoot: THREE.Group;
+                                smoothedRoot: THREE.Group;
 
   constructor(private arToolkitService: ArToolkitService) {
     this.scene        = new THREE.Scene();
@@ -53,7 +53,7 @@ export class AppComponent implements AfterViewInit {
       this.onRenderFcts.forEach((onRenderFct) => {
         onRenderFct(deltaMsec / 1000, nowMsec / 1000);
       });
-    }
+    };
     window.requestAnimationFrame(animate);
   }
 
