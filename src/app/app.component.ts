@@ -59,7 +59,7 @@ export class AppComponent implements AfterViewInit {
 
   createARObject() {
     const geometry      = new THREE.PlaneGeometry(1, 1, 1);
-    const texture       = new THREE.TextureLoader().load('/assets/Moon_Flower.jpg');
+    const texture       = new THREE.TextureLoader().load('assets/Moon_Flower.jpg');
     texture.needsUpdate = true;
     const material      = new THREE.MeshBasicMaterial({
       map: texture,
