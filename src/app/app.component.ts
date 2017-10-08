@@ -58,12 +58,12 @@ export class AppComponent implements AfterViewInit {
   }
 
   createARObject() {
-    const geometry      = new THREE.PlaneGeometry(1, 1, 1);
+    const geometry      = new THREE.PlaneGeometry(1, 1);
     const texture       = new THREE.TextureLoader().load('assets/Moon_Flower.jpg');
     texture.needsUpdate = true;
     const material      = new THREE.MeshBasicMaterial({
       map: texture,
-      side: THREE.DoubleSide
+      side: THREE.FrontSide
     });
     const mesh          = new THREE.Mesh(geometry, material);
     mesh.rotation.x     = -Math.PI / 2; // -90°
